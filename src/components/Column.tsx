@@ -18,16 +18,24 @@ interface IColumn {
 
 export const Column: FC<IColumn> = ({ heading, elements }) => {
   const columnIdentifier = useMemo(() => _.camal(heading), [heading]);
+  const amounts = useMemo(
+    () => elements.filter((elm) => elm.stage === columnIdentifier).length,
+    [elements, columnIdentifier]
+  );
 
   return (
     <ColumnWrapper>
-      <ColumnHeader variant={columnIdentifier as any}>{heading}</ColumnHeader>
+      <ColumnHeaderWrapper>
+        <ColumnHeader variant={columnIdentifier as any}>{heading}</ColumnHeader>
+        <ColumnTasksAmout>{amounts}</ColumnTasksAmout>
+      </ColumnHeaderWrapper>
       <Droppable id={columnIdentifier}>
         {elements.map((elm, elmIndex) => {
           if (elm.stage === columnIdentifier) {
             return (
               <DraggableElement
                 key={`draggable-element-${elmIndex}-${columnIdentifier}`}
+                columnID={columnIdentifier}
                 identifier={elm.id}
                 content={elm.content}
               />
@@ -51,6 +59,24 @@ const DropPlaceholder = styled("div", {
   marginTop: 15,
 });
 
+const ColumnHeaderWrapper = styled("div", {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const ColumnTasksAmout = styled("span", {
+  width: 30,
+  height: 30,
+  borderRadius: 6,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "#1d1d1d",
+  color: "#FFF",
+});
+
 const ColumnHeader = styled("h3", {
   variants: {
     variant: {
@@ -61,7 +87,7 @@ const ColumnHeader = styled("h3", {
         color: "#5800FF",
       },
       inReview: {
-        color: "#0E3EDA",
+        color: "#ffb300",
       },
       done: {
         color: "#24A19C",
