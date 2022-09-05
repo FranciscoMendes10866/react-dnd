@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 import { styled } from "@stitches/react";
 import * as _ from "radash";
 
-import { Droppable } from "./Droppable";
+import { Droppable } from "../primitives";
 import { DraggableElement } from "./DraggableElement";
 
 export interface IElement {

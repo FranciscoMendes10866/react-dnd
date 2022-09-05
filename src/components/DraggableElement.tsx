@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import { styled } from "@stitches/react";
 
-import { Draggable } from "./Draggable";
+import { Draggable } from "../primitives";
 
 interface IDraggableElement {
   identifier: string;
