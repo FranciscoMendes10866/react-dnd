@@ -8,7 +8,7 @@ import { DraggableElement } from "./DraggableElement";
 export interface IElement {
   id: string;
   content: string;
-  stage: string;
+  column: string;
 }
 
 interface IColumn {
@@ -19,7 +19,7 @@ interface IColumn {
 export const Column: FC<IColumn> = ({ heading, elements }) => {
   const columnIdentifier = useMemo(() => _.camal(heading), [heading]);
   const amounts = useMemo(
-    () => elements.filter((elm) => elm.stage === columnIdentifier).length,
+    () => elements.filter((elm) => elm.column === columnIdentifier).length,
     [elements, columnIdentifier]
   );
 
@@ -31,7 +31,7 @@ export const Column: FC<IColumn> = ({ heading, elements }) => {
       </ColumnHeaderWrapper>
       <Droppable id={columnIdentifier}>
         {elements.map((elm, elmIndex) => {
-          if (elm.stage === columnIdentifier) {
+          if (elm.column === columnIdentifier) {
             return (
               <DraggableElement
                 key={`draggable-element-${elmIndex}-${columnIdentifier}`}

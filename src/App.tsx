@@ -6,19 +6,19 @@ import { styled } from "@stitches/react";
 import { Column, IElement } from "./components";
 
 const COLUMNS = ["Backlog", "In Progress", "In Review", "Done"];
-export const DEFAULT_STAGE = "backlog";
+export const DEFAULT_COLUMN = "backlog";
 
 export const App = () => {
   const [data, setData] = useState<IElement[]>([
     {
       id: "1",
       content: "Hello world 1",
-      stage: DEFAULT_STAGE,
+      column: DEFAULT_COLUMN,
     },
     {
       id: "2",
       content: "Hello world 2",
-      stage: DEFAULT_STAGE,
+      column: DEFAULT_COLUMN,
     },
   ]);
 
@@ -29,8 +29,8 @@ export const App = () => {
 
       const updatedState = deepCopy.map((elm): IElement => {
         if (elm.id === elementId) {
-          const stage = over?.id ? String(over.id) : elm.stage;
-          return { ...elm, stage };
+          const column = over?.id ? String(over.id) : elm.column;
+          return { ...elm, column };
         }
         return elm;
       });
