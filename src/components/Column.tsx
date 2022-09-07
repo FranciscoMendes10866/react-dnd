@@ -25,8 +25,8 @@ export const Column: FC<IColumn> = ({ heading, elements }) => {
 
   return (
     <ColumnWrapper>
-      <ColumnHeaderWrapper>
-        <ColumnHeader variant={columnIdentifier as any}>{heading}</ColumnHeader>
+      <ColumnHeaderWrapper variant={columnIdentifier as any}>
+        <Heading>{heading}</Heading>
         <ColumnTasksAmout>{amounts}</ColumnTasksAmout>
       </ColumnHeaderWrapper>
       <Droppable id={columnIdentifier}>
@@ -48,9 +48,16 @@ export const Column: FC<IColumn> = ({ heading, elements }) => {
   );
 };
 
+const Heading = styled("h3", {
+  color: "#FFF",
+});
+
 const ColumnWrapper = styled("div", {
   width: 320,
   padding: 10,
+  border: "dashed",
+  borderWidth: 2,
+  borderRadius: 10,
 });
 
 const DropPlaceholder = styled("div", {
@@ -64,34 +71,36 @@ const ColumnHeaderWrapper = styled("div", {
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
-});
-
-const ColumnTasksAmout = styled("span", {
-  width: 30,
-  height: 30,
-  borderRadius: 6,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  background: "#1d1d1d",
-  color: "#FFF",
-});
-
-const ColumnHeader = styled("h3", {
   variants: {
     variant: {
       backlog: {
-        color: "#F94892",
+        background: "#F94892",
       },
       inProgress: {
-        color: "#5800FF",
+        background: "#5800FF",
       },
       inReview: {
-        color: "#ffb300",
+        background: "#ffb300",
       },
       done: {
-        color: "#24A19C",
+        background: "#24A19C",
       },
     },
   },
+  padding: "0px 10px 0px 10px",
+  borderRadius: 10,
+});
+
+const ColumnTasksAmout = styled("span", {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: 30,
+  height: 30,
+  borderRadius: 6,
+  color: "#FFF",
+  background: "rgba( 255, 255, 255, 0.25 )",
+  boxShadow: "0 8px 32px 0 rgba( 255, 255, 255, 0.18 )",
+  backdropFilter: "blur(5px)",
+  border: "1px solid rgba( 255, 255, 255, 0.18 )",
 });
