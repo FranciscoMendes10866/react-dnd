@@ -2,25 +2,28 @@ import "@fontsource/anek-telugu";
 import { useCallback, useState } from "react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { styled } from "@stitches/react";
+import * as _ from "radash";
 
 import { Column, IElement } from "./components";
 
 const COLUMNS = ["Backlog", "In Progress", "In Review", "Done"];
 export const DEFAULT_COLUMN = "backlog";
 
+const DEFAULT_DATA_STATE: IElement[] = [
+  {
+    id: _.uid(6),
+    content: "Hello world 1",
+    column: DEFAULT_COLUMN,
+  },
+  {
+    id: _.uid(6),
+    content: "Hello world 2",
+    column: DEFAULT_COLUMN,
+  },
+];
+
 export const App = () => {
-  const [data, setData] = useState<IElement[]>([
-    {
-      id: "1",
-      content: "Hello world 1",
-      column: DEFAULT_COLUMN,
-    },
-    {
-      id: "2",
-      content: "Hello world 2",
-      column: DEFAULT_COLUMN,
-    },
-  ]);
+  const [data, setData] = useState<IElement[]>(DEFAULT_DATA_STATE);
 
   const handleOnDragEnd = useCallback(
     ({ active, over }: DragEndEvent) => {
@@ -47,7 +50,11 @@ export const App = () => {
           <Column
             key={`column-${columnIndex}`}
             heading={column}
-            elements={data}
+            elements={_.select(
+              data,
+              (elm) => elm,
+              (f) => f.column === _.camal(column)
+            )}
           />
         ))}
       </MainWrapper>

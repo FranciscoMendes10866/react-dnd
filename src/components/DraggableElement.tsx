@@ -5,17 +5,14 @@ import { Draggable } from "../primitives";
 
 interface IDraggableElement {
   identifier: string;
-  columnID: string;
   content: string;
 }
 
 export const DraggableElement: FC<IDraggableElement> = ({
   identifier,
-  columnID,
   content,
 }) => {
   const itemIdentifier = useMemo(() => identifier, [identifier]);
-  const columnIndentifier = useMemo(() => columnID, [columnID]);
 
   return (
     <Draggable id={itemIdentifier}>

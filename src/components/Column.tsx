@@ -18,6 +18,7 @@ interface IColumn {
 
 export const Column: FC<IColumn> = ({ heading, elements }) => {
   const columnIdentifier = useMemo(() => _.camal(heading), [heading]);
+
   const amounts = useMemo(
     () => elements.filter((elm) => elm.column === columnIdentifier).length,
     [elements, columnIdentifier]
@@ -30,18 +31,13 @@ export const Column: FC<IColumn> = ({ heading, elements }) => {
         <ColumnTasksAmout>{amounts}</ColumnTasksAmout>
       </ColumnHeaderWrapper>
       <Droppable id={columnIdentifier}>
-        {elements.map((elm, elmIndex) => {
-          if (elm.column === columnIdentifier) {
-            return (
-              <DraggableElement
-                key={`draggable-element-${elmIndex}-${columnIdentifier}`}
-                columnID={columnIdentifier}
-                identifier={elm.id}
-                content={elm.content}
-              />
-            );
-          }
-        })}
+        {elements.map((elm, elmIndex) => (
+          <DraggableElement
+            key={`draggable-element-${elmIndex}-${columnIdentifier}`}
+            identifier={elm.id}
+            content={elm.content}
+          />
+        ))}
         <DropPlaceholder />
       </Droppable>
     </ColumnWrapper>
